@@ -26,10 +26,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnRight() {
-		if (speed == 1f)
-			SetSpeed (1f);
-		else
-			SetSpeed(speed + 1f);
+		SetSpeed (1f);
 	}
 
 	void OnLeft() {
