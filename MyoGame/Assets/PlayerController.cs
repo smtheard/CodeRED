@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     // so that actions are only performed upon making them rather than every frame during
     // which they are active.
     private Pose _lastPose = Pose.Unknown;
-
     // Update is called once per frame.
     void Update ()
     {
@@ -30,16 +29,19 @@ public class PlayerController : MonoBehaviour
 		if (thalmicMyo.pose != _lastPose) {
 			_lastPose = thalmicMyo.pose;
 
-			if (thalmicMyo.pose == Pose.FingersSpread) {
+			if (thalmicMyo.pose == Pose.FingersSpread || Input.GetKeyDown(KeyCode.Space)) {
 				target.SendMessage("OnJump", SendMessageOptions.DontRequireReceiver);
 			} 
 		} else {
-			if (thalmicMyo.pose == Pose.WaveOut) {
+
+			if (thalmicMyo.pose == Pose.WaveOut || Input.GetKeyDown(KeyCode.D)) {
 				target.SendMessage("OnRight", SendMessageOptions.DontRequireReceiver);
-			} else if (thalmicMyo.pose == Pose.WaveIn) {
+			} else if (thalmicMyo.pose == Pose.WaveIn || Input.GetKeyDown(KeyCode.A)) {
 				target.SendMessage("OnLeft", SendMessageOptions.DontRequireReceiver);
-			} else if (thalmicMyo.pose == Pose.Rest) {
+			} else if (thalmicMyo.pose == Pose.Rest || Input.GetKeyDown(KeyCode.S)) {
 				target.SendMessage("OnStop", SendMessageOptions.DontRequireReceiver);
+			} else if (Input.GetKeyDown(KeyCode.Space)) {
+				target.SendMessage("OnJump", SendMessageOptions.DontRequireReceiver);
 			} 
 		}
     }
