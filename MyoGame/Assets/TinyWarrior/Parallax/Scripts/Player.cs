@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Diagnostics;
 
 public class Player : MonoBehaviour {
     public float pos = 0f;
@@ -8,12 +10,18 @@ public class Player : MonoBehaviour {
 	float speed = 0f;
 	BoxCollider hitbox;
 	float startingX = 0.07f;
+	Text text;
+	Stopwatch stopwatch;
 
 	void Start () {
         pos = 0f;
 		speed = 0f;
         animator = GetComponent<Animator>();
         hitbox = GetComponent<BoxCollider> ();
+		//stopwatch = new Stopwatch ();
+		//stopwatch.Start ();
+		//text = GameObject.Find ("Text").GetComponent<Text> ();
+		//text.text = "";
 	}
 
     void SetSpeed(float spd) {
@@ -51,6 +59,11 @@ public class Player : MonoBehaviour {
 
 	void Update () {
         UpdateMovement();
+
+		//if (pos >= 50) {
+		//	stopwatch.Stop ();
+		//	text.text = stopwatch.Elapsed.ToString();
+		//}
 
 		if (animator.bodyPosition.x != startingX) {
 			isJumping = true;

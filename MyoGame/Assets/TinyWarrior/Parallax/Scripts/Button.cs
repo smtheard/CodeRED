@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Button : MonoBehaviour {
-    public GameObject target;
-    public string downMessage = "OnClickDown";
-    public string upMessage = "OnClickUp";
+using LockingPolicy = Thalmic.Myo.LockingPolicy;
+using Pose = Thalmic.Myo.Pose;
+using UnlockType = Thalmic.Myo.UnlockType;
+using VibrationType = Thalmic.Myo.VibrationType;
 
-    void OnMouseDown()
-    {
-        if (target && downMessage.Length>0) target.SendMessage(downMessage, SendMessageOptions.DontRequireReceiver);
-    }
-    void OnMouseUp()
-    {
-        if (target && upMessage.Length > 0) target.SendMessage(upMessage, SendMessageOptions.DontRequireReceiver);
-    }
+public class Button : MonoBehaviour
+{
+	public GameObject myo = null;
+	
+	void Update ()
+	{
+		ThalmicMyo thalmicMyo = myo.GetComponent<ThalmicMyo> ();
 
+		if (thalmicMyo.pose == Pose.FingersSpread) {
+			Application.LoadLevel(1);
+		} else if (thalmicMyo.pose == Pose.WaveOut) {
+			Application.LoadLevel(2);
+		} 	 
+	}
 }
