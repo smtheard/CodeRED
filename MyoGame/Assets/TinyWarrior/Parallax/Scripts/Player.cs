@@ -12,12 +12,6 @@ public class Player : MonoBehaviour {
         speed = 0f;
         animator = GetComponent<Animator>();
 	}
- 
-    void AddSpeed(float delta)
-    {
-        speed = Mathf.Clamp( speed + delta, -1f, 1f);
-        animator.SetFloat("Speed", speed);
-    }
 
     void SetSpeed(float spd)
     {
@@ -29,10 +23,10 @@ public class Player : MonoBehaviour {
         animator.SetTrigger("Attack");
     }
     void OnJump()
-    {
-        animator.SetTrigger("Jump");
-    }
-    void OnRight()
+	{
+		animator.SetTrigger("Jump");
+	}
+	void OnRight()
     {
         direction = 1;
     }
@@ -48,7 +42,10 @@ public class Player : MonoBehaviour {
 
     void UpdateMovement()
     {
-        if (direction != 0) AddSpeed(direction * 0.01f);
+        if (direction == 1)
+			SetSpeed (direction * 1.5f);
+		else
+			SetSpeed(direction);
 
         pos += speed * Time.deltaTime;
     }
