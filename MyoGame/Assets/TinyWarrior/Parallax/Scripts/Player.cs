@@ -3,50 +3,47 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
     public float pos = 0f;
-    Animator animator;
-    float speed = 0f;
-    int direction = 0;
+	Animator animator;
+	float speed = 0f;
 
 	void Start () {
         pos = 0f;
-        speed = 0f;
+		speed = 0f;
         animator = GetComponent<Animator>();
 	}
 
-    void SetSpeed(float spd)
-    {
-        speed = spd;
+    void SetSpeed(float spd) {
+		speed = spd;
         animator.SetFloat("Speed", speed);
     }
-    void OnAttack()
-    {
+
+    void OnAttack() {
         animator.SetTrigger("Attack");
     }
-    void OnJump()
-	{
+
+    void OnJump() {
 		animator.SetTrigger("Jump");
 	}
-	void OnRight()
-    {
-        direction = 1;
-    }
-    void OnLeft()
-    {
-        direction = -1;
-    }
-    void OnStop()
-    {
-        direction = 0;
+
+	void OnRight() {
+		if (speed == 1f)
+			SetSpeed (1f);
+		else
+			SetSpeed(speed + 1f);
+	}
+
+	void OnLeft() {
+		if (speed == -1f)
+			SetSpeed (-1f);
+		else
+			SetSpeed(speed - 1f);
+	}
+
+	void OnStop() {
         SetSpeed(0f);
     }
 
-    void UpdateMovement()
-    {
-        if (direction == 1)
-			SetSpeed (direction * 1.5f);
-		else
-			SetSpeed(direction);
-
+    void UpdateMovement() {
         pos += speed * Time.deltaTime;
     }
 
