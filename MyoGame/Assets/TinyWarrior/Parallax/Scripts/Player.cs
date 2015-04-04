@@ -3,9 +3,12 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
     public float pos = 0f;
+	public bool isJumping = false;
 	Animator animator;
 	float speed = 0f;
 	BoxCollider hitbox;
+	float startingX = 0.07f;
+
 	void Start () {
         pos = 0f;
 		speed = 0f;
@@ -23,7 +26,7 @@ public class Player : MonoBehaviour {
     }
 
     void OnJump() {
-		animator.SetTrigger("Jump");
+		/*if (!isJumping)*/ animator.SetTrigger("Jump");
 	}
 
 	void OnRight() {
@@ -42,11 +45,17 @@ public class Player : MonoBehaviour {
     }
 
     void UpdateMovement() {
-    	hitbox.center = new Vector3(animator.bodyPosition.x+0.07f, animator.bodyPosition.y+2.4f, animator.bodyPosition.z+2f);
+    	hitbox.center = new Vector3(animator.bodyPosition.x+5.68f, animator.bodyPosition.y+2.6f, animator.bodyPosition.z+2f);
         pos += speed * Time.deltaTime;
     }
 
 	void Update () {
         UpdateMovement();
+
+		if (animator.bodyPosition.x != startingX) {
+			isJumping = true;
+		} else {
+			isJumping = false;
+		}
 	}
 }
